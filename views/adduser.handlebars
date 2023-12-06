@@ -1,0 +1,134 @@
+<section class="nav-index" id="navbar">
+    <nav class="navbar navconfig justify-content-center">
+        <a class="navbar-brand" href="#">
+            <img src="/img/logo/pda-adm.png" alt="PDA" width="100%" height="50">
+        </a>
+    </nav>
+</section>
+<section id="registrar">
+    <button class="main-btn" type="button"><a href="/">Voltar</a></button>
+    <h1 class="titulo-sobre">Cadastrar usuário</h1>
+    <div>
+        <form class="row justify-content-center" action="/aluno/adduser" method="post">
+            <div class="form-group mb-3 col-md-4">
+                <label for="codigo-etec" class="text-login">Código da ETEC</label>
+                <select class="form-control box-red" id="codigo_etec" name="codigo_etec" required>
+                    <option value="">Selecione...</option>
+                    <option value="141">141</option>
+                </select>
+            </div>
+            <div class="form-group mb-3 col-md-4">
+                <label for="rm" class="text-login">RM</label>
+                <input type="text" class="form-control box-red" id="rm" name="rm" required maxlength="5">
+            </div>
+            <div class="form-group mb-3 col-md-4">
+                <label for="email" class="text-login">Nome completo</label>
+                <input type="text" class="form-control box-red" id="nome" name="nome" required>
+            </div>
+            <div class="form-group mb-3 col-md-4">
+                <label for="email" class="text-login">Email</label>
+                <input type="text" class="form-control box-red" id="email" name="email"
+                    placeholder="nome.sobrenome@etec.sp.gov.br" required>
+            </div>
+            <div class="form-group mb-3 col-md-4">
+                <label for="senha" class="text-login">Senha</label>
+                <select class="form-control box-red" id="senha" name="senha" onchange="checkOption()">
+                    <option value="">Selecione...</option>
+                    <option value="etec123">etec123</option>
+                </select>
+                {{!-- <div class="password-container">
+                    <input type="password" class="form-control box-red" id="password2" name="senha" style="display: none;" placeholder="Digite a senha" required>
+                    <span class="iconInput d-none" onclick="togglePassword('password2')" id="olho4">
+                        <i class="far fa-eye"></i>
+                    </span>
+                </div> --}}
+            </div>
+            <div class="form-group mb-3 col-md-4">
+                <label for="email" class="text-login">Habilitação</label>
+                <select class="form-control box-red" id="habilitacao" name="habilitacao" required>
+                    <option value="">Selecione...</option>
+                    <option value="Ensino Médio com Habilitação Profissional de Técnico para Informática para Internet">Informática</option>
+                </select>
+            </div>
+            <div class="form-group mb-3 col-md-2">
+                <label for="email" class="text-login">Turma</label>
+                <select class="form-control box-red" id="turma" name="turma" required>
+                    <option value="">Selecione...</option>
+                    <option value="A">A</option>
+                    <option value="B">B</option>
+                </select>
+            </div>
+            <div class="form-group mb-3 col-md-2">
+                <label for="email" class="text-login">Matrícula</label>
+                <select class="form-control box-red" id="matricula" name="matricula" required>
+                    <option value="">Selecione...</option>
+                    <option value="Cursando">Cursando</option>
+                    <option value="Concluído">Concluído</option>
+                </select>
+            </div>
+            <div class="form-group mb-3 col-md-2">
+                <label for="email" class="text-login">Módulo</label>
+                <select class="form-control box-red" id="modulo" name="modulo" required>
+                    <option value="">Selecione...</option>
+                    <option value="1ª Série">1ª Série</option>
+                    <option value="2ª Série">2ª Série</option>
+                    <option value="3ª Série">3ª Série</option>
+                </select>
+            </div>
+            <div class="form-group mb-3 col-md-2">
+                <label for="email" class="text-login">Turno</label>
+                <select class="form-control box-red" id="turno" name="turno" required>
+                    <option value="">Selecione...</option>
+                    <option value="Matutino">Matutino</option>
+                    <option value="Vespertino">Vespertino</option>
+                    <option value="Noturno">Noturno</option>
+                </select>
+            </div>
+            <div class="form-group mb-3 col-md-2">
+                <label for="email" class="text-login">Ano de início</label>
+                <input type="text" class="form-control box-red" id="ano_inicio" name="ano_inicio" maxlength="4" required>
+            </div>
+            <div class="form-group mb-3 col-md-2">
+                <label for="email" class="text-login">Boletim</label>
+                <select class="form-control box-red" id="opcao" name="opcao" required>
+                    <option value="">Selecione...</option>
+                    <option value="modelo1">Modelo 1</option>
+                    <option value="modelo2">Modelo 2</option>
+                    <option value="modelo3">Modelo 3</option>
+                </select>
+            </div>
+            <button type="submit" class="red-btn col-md-3" id="cod" style="margin-top: 20px;">Cadastrar aluno</button>
+        </form>
+    </div>
+</section>
+
+{{!-- <script>
+    function checkOption() {
+        var select = document.getElementById("senha");
+        var outraOpcaoInput = document.getElementById("password2");
+        var olhoIcon = document.getElementById("olho4");
+
+        if (select.value === "outro") {
+            outraOpcaoInput.style.display = "block";
+            olhoIcon.classList.remove("d-none");  // Mostra o ícone
+        } else {
+            outraOpcaoInput.style.display = "none";
+            olhoIcon.classList.add("d-none");  // Oculta o ícone
+        }
+    }
+
+    function togglePassword(passwordId) {
+        var passwordInput = document.getElementById(passwordId);
+        var olhoIcon = document.getElementById("olho4");
+
+        if (passwordInput.type === "password") {
+            passwordInput.type = "text";
+            olhoIcon.classList.add("fa-eye-slash");
+            olhoIcon.classList.remove("fa-eye");
+        } else {
+            passwordInput.type = "password";
+            olhoIcon.classList.remove("fa-eye-slash");
+            olhoIcon.classList.add("fa-eye");
+        }
+    }
+</script> --}}

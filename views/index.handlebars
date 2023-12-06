@@ -1,0 +1,120 @@
+<!-- Login-->
+<section id="login" class="container">
+    <!-- img background inferior-->
+    <div class="fundo-inf"><img src="/img/svg/background-login-inferior.svg" alt="background-login"></div>
+
+    <div class="row wrapper">
+        <div class="col-md-6 centralizar">
+            <img src="/img/svg/PDA-logo-login.png" alt="PDA-logo" id="img-login">
+            <img src="/img/svg/PDA-logo.svg" alt="PDA-logo" id="img-login2">
+        </div>
+        <div class="col-md-6">
+            <!-- img fundo superior -->
+            <div class="fundo-sup"><img src="/img/svg/background-login-superior.svg" alt="background-login"></div>
+
+            <div class="card-login">
+                <p class="titulo-login">Faça seu login</p>
+                <form action="/aluno/login" method="post">
+                    <div class="form-group mb-3">
+                        <label for="codigo-etec" class="text-login">Código da ETEC</label>
+                        <input type="text" class="form-control box-red" id="codigo-etec" name="codigo_etec" required maxlength="3">
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="rm" class="text-login">RM</label>
+                        <input type="text" class="form-control box-red" id="rm" name="rm" required maxlength="5">
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="senha" class="text-login" for="exampleInputPassword1">Senha</label>
+                        <div class="password-container">
+                        <input type="password" class="form-control box-red" id="password4" name="senha" required>
+                        <span class="iconInput" onclick="togglePassword('password4')">
+                            <i id="olho4" class="far fa-eye"></i>
+                        </span>
+                        </div>
+                    </div>
+                    <button type="submit" class="red-btn mb-3">Acessar</button> 
+                    <p class="text-center"><a class="esqueci-senha" href="/esquecisenha">Esqueci minha senha</a></p>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Navbar-->
+<section class="nav-index" id="navbar">
+    <nav class="navbar navconfig">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="/img/logo/pda-logo-azul.png" alt="PDA" width="100%" height="45">
+            </a>
+            <form class="d-flex" role="search">
+                <button class="outline-red-btn" type="button"><a href="#login">Acessar</a></button>
+            </form>
+        </div>
+    </nav>
+</section>
+
+<!-- Sobre-->
+<section id="sobre">
+    <h1 class="text-center titulo-sobre">Sobre a PDA</h1>
+    <div class="row conteudo-sobre">
+        <div class="col-md-6">
+            <h2 class="subtitulo-sobre">O que é?</h2>
+            <p class="text-sobre">A Plataforma de Desempenho Acadêmico é um site desenvolvido para auxiliar os
+                alunos das instituições ETECs, no acompanhamento de suas notas e desempenho escolar.</p>
+        </div>
+        <div class="col-md-6">
+            <h2 class="subtitulo-sobre">Objetivo</h2>
+            <p class="text-sobre">Plataforma criada com o objetivo de proporcionar um acesso rápido e intuitivo às
+                informações relevantes sobre rendimento acadêmico dos alunos.</p>
+        </div>
+    </div>
+    <div class="custom-shape-divider-bottom-1686598253">
+        <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+            <path
+                d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"
+                class="shape-fill"></path>
+        </svg>
+    </div>
+    <div class="bg-sobre">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="bg-text-sobre">
+                    <h2 class="text-center subtitulo-sobre-sec">Acompanhamento</h2>
+                    <p class="text-center text-sobre-sec">Fique ciente a respeiro de suas notas e frequência durante
+                        as aulas</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="bg-text-sobre">
+                    <h2 class="text-center subtitulo-sobre-sec">Organização</h2>
+                    <p class="text-center text-sobre-sec">Mantenha-se organizado em relação aos seus estudos.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="bg-text-sobre">
+                    <h2 class="text-center subtitulo-sobre-sec">Desempenho</h2>
+                    <p class="text-center text-sobre-sec">Acompanhe seu desenvolvimento acadêmico</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="custom-shape-divider-top-1686597828">
+        <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+            <path
+                d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"
+                class="shape-fill"></path>
+        </svg>
+    </div>
+    <div id="msgContainer"></div>
+</section>
+{{>_footer}}
+
+<script>
+  window.onload = function () {
+    history.pushState(null, null, location.href)
+    window.onpopstate = function () {
+      history.go(1)
+    }
+  }
+</script>

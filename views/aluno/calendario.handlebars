@@ -1,0 +1,203 @@
+<div class="filter-overlay" id="filter-overlay"></div>
+{{>_navbar}}
+{{#each erros}}
+<div id="msgContainer">
+    <div class="msg_error show" id="msg">
+        <div class="msg-header">
+            {{texto}}
+        </div>
+    </div>
+</div>
+{{else}}
+{{/each}}
+<main class="content">
+    <div class="intro">
+        <h1>Calendário de Aulas</h1>
+    </div>
+    <div class="block">
+        <div class="custom__trial">
+            <div class="container-calendar">
+                <div class="calendar table-responsive">
+                    <div class="calendar-header">
+                        <button id="prevMonth"><i class="fa-solid fa-chevron-left"></i></button>
+                        <h1 id="currentMonthDisplay">Mês do Ano</h1>
+                        <button id="nextMonth"><i class="fa-solid fa-chevron-right"></i></button>
+                    </div>
+                    <table class="">
+                        <thead>
+                            <tr>
+                                <th>Domingo</th>
+                                <th>Segunda</th>
+                                <th>Terça</th>
+                                <th>Quarta</th>
+                                <th>Quinta</th>
+                                <th>Sexta</th>
+                                <th>Sábado</th>
+                            </tr>
+                        </thead>
+                        <tbody id="calendarBody">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="custom__trial_2">
+                <div class="eventos" data-bs-spy="scroll" data-bs-target="#simple-list-example" data-bs-offset="0"
+                    data-bs-smooth-scroll="true" class="scrollspy-example" tabindex="0">
+                    <div class="header">
+                        <h1>Eventos agendados</h1>
+                    </div>
+                    <div class="scheduled">
+                        <div class="material">
+                            {{#each agendas}}
+                            <div class="acordeon">
+                                <div class="tab">
+                                    <input type="checkbox" name="accordion-1" id="cb{{@index}}">
+                                    <label for="cb{{@index}}" class="tab__label">
+                                        <div class="acordeon__header">
+                                            <div class="bolinha"
+                                                style="background-color: {{cor}}; border: 0.5px solid #ccc;"></div>
+                                            <strong>{{categoria}}</strong>
+                                            <div id="dataAcordeon">{{selectedData}}</div>
+                                        </div>
+                                        <div class="tab__icons">
+                                            <div class="tab__arrow"></div>
+
+                                            <div class="input-icons" style="width: 1em; height:1em;">
+                                                <i class="fa-regular fa-pen-to-square" style="color: #108750;"></i>
+                                                <input type="hidden" name="id" value="{{_id}}">
+                                                <input type="button" class="input-field edit-event-button"
+                                                    style="z-index: 10;" value="" data-bs-toggle="modal"
+                                                    data-bs-target="#edit{{_id}}" data-event-id="{{_id}}">
+                                            </div>
+
+                                            <form action="/aluno/agenda/deletar" method="post">
+                                                <div class="input-icons"
+                                                    style="align-items:center; width: 1em; height:1em;">
+                                                    <i class="fa-regular fa-trash-can"
+                                                        style="color: var(--main-btn-exit);"></i>
+                                                    <input type="hidden" name="id" value="{{_id}}">
+                                                    <input type="submit" class="input-field" style="z-index: 10;"
+                                                        value="">
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </label>
+                                    <div class="tab__content" id="{{@index}}">
+                                        <p>{{conteudo}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            {{else}}
+                            <div id="noEvents">
+                                Nenhum evento agendado
+                            </div>
+                            {{/each}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="selected-cell-info">
+            <p id="selectedDate">Data selecionada:</p>
+            <p id="mensagem" class="mensagem" style="display: none;">Selecione uma data</p>
+            <button id="showForm" class="main-btn">Agendar</button>
+
+            <form action="/aluno/novaagenda" method="post" id="appointmentForm" class="agendaForm"
+                style="display: none;">
+                <input type="hidden" id="selectedDateInput" name="data" readonly>
+                <div class="calend_agend">
+                    <label for="nomeAgendamento" for="categoria">Categoria:</label>
+                    <div class="input__container">
+                        <select class="outline-blue-select" name="categoria" id="categoria">
+                            <option selected>Escolha:</option>
+                            <option value="Atividade">Atividade</option>
+                            <option value="Prova">Prova</option>
+                            <option value="Eventos">Eventos</option>
+                            <option value="Outros">Outros</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="calend_agend">
+                    <label for="conteudo">Conteúdo:</label>
+                    <div class="input__container">
+                        <input type="text" name="conteudo" id="conteudo" class="outline-blue-text">
+                    </div>
+                </div>
+
+                <div class="calend_agend">
+                    <label for="colorPicker">Selecione uma cor:</label>
+                    <input type="color" name="cor" class="colorPickerBlue" id="colorPicker">
+                </div>
+                <button type="submit" class="main-btn" id="agendar">Agendar</button>
+            </form>
+        </div>
+    </div>
+</main>
+
+<!-- Link js -->
+<script src="/js/calendar.js"></script>
+
+{{#each agendas}}
+<div class="modal fade" id="edit{{_id}}" tabindex="-1" aria-labelledby="edit" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="title">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Editar evento: {{selectedData}}</h1>
+                </div>
+            </div>
+            <div class="modal-body">
+                <form action="/aluno/agenda/editar" method="post" id="appointmentForm" class="agendaForm">
+                    <input type="hidden" name="id" value="{{_id}}">
+                    <input type="hidden" id="selectedDateInput" name="data" readonly>
+                    <div class="calend_agend">
+                        <label for="nomeAgendamento" for="categoria">Categoria:</label>
+                        <div class="input__container" style="color: #000;">
+                            <select class="outline-blue-select" name="categoria" id="categoria" style="color: #000;"
+                                onmouseover="this.style.color = '#fff';" onmouseout="this.style.color = '#000';">
+                                <option selected>{{categoria}}</option>
+                                <option value="Atividade">Atividade</option>
+                                <option value="Prova">Prova</option>
+                                <option value="Eventos">Eventos</option>
+                                <option value="Outros">Outros</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="calend_agend">
+                        <label for="conteudo" style="color: #000;">Conteúdo:</label>
+                        <div class="input__container">
+                            <input type="text" name="conteudo" id="conteudo" class="outline-blue-text"
+                                style="color: #000;" value="{{conteudo}}">
+                        </div>
+                    </div>
+
+                    <div class="calend_agend">
+                        <label for="colorPicker">Cor:</label>
+                        <input type="color" name="cor" class="colorPickerBlue" id="colorPicker" value="{{cor}}">
+                    </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="red-btn" data-bs-dismiss="modal">Cancelar</button>
+                <button type="submit" class="green-btn" id="agendar">Editar</button>
+            </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+{{/each}}
+
+<script>
+    $(document).ready(function () {
+        $('.edit-event-button').click(function () {
+            var eventId = $(this).data('event-id');
+            var modalId = '#edit' + eventId;
+            var modal = $(modalId);
+
+            modal.find('.modal-title').text('Editar evento: ' + eventId);
+            modal.find('input[name="id"]').val(eventId);
+        });
+    });
+</script>

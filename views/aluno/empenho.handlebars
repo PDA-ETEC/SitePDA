@@ -1,0 +1,106 @@
+<style>
+@keyframes progress {
+  0% { --percentage: 0; }
+  100% { --percentage: var(--value); }
+}
+
+@property --percentage {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 0;
+}
+
+[role="progressbar"] {
+  --percentage: var(--value);
+  /*--primary: #15e91c; */
+  --primary: var(--green-grafic);
+  --secondary: var(--red-grafic);
+  --size: 150px;
+  animation: progress 2s 0.5s forwards;
+  width: var(--size);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+}
+
+[role="progressbar"]::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: conic-gradient(var(--primary) calc(var(--percentage) * 1%), var(--secondary) 0);
+  mask: radial-gradient(white 55%, transparent 0);
+  mask-mode: alpha;
+  -webkit-mask: radial-gradient(#0000 60%, #000 0);
+  -webkit-mask-mode: alpha;
+}
+
+[role="progressbar"]::after {
+  counter-reset: percentage var(--value);
+  content: counter(percentage) '%';
+  /* font-size: calc(var(--size) / 5); */
+  font-size: 40px;
+  font-weight: 600;
+  color: var(--frequencia-grafic); 
+}
+
+.grafic-center {
+display: flex;
+align-items: center;
+justify-content: center;
+}
+</style>
+
+<div class="filter-overlay" id="filter-overlay"></div>
+{{>_navbar}}
+<main class="content">
+    <div class="intro">
+        <h1>Empenho escolar</h1>
+    </div>
+    <div class="block">
+        <div class="row row-cols-auto g-3 justify-content-center">
+            {{#each materias}}
+            <div class="col">
+                <div class="card board" style="width: 250px; min-height: auto;">
+                    <div class="d-flex justify-content-end">
+                        <div class="input-icons2">
+                            <i class="fa-solid fa-ellipsis fa-xl"></i>
+                            <input type="button" class="btn dropdown-toggle input-field2" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <div class="dropdown-menu dropdown-menu-end">
+                                <a class="dropdown-item" href="#">Ocultar</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="grafic-center">
+                            <div class="board-img" role="progressbar" aria-valuenow="{{this.frequencia}}" aria-valuemin="0" aria-valuemax="100" style="--value: {{this.frequencia}}"></div>
+                        </div>
+                        <div class="grafico__legenda">
+                            <span class="presenca"></span>
+                            <p class="card-text">Presença: {{this.presencas}}</p>
+                        </div>
+                        <div class="grafico__legenda">
+                            <span class="faltas"></span>
+                            <p class="card-text">Faltas: {{this.faltas}}</p>
+                        </div>
+                        <div class="grafico__legenda">
+                            <span class="frequencia"></span>
+                            <p class="card-text">Frequência: {{this.frequencia}}%</p>
+                        </div>
+                        <div class="subject" style="margin-top: 10px;"> 
+                            <h5>{{this.nome}}</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{else}}
+            <div>Nenhuma matéria encontrada.</div>
+            {{/each}}
+        </div>
+    </div>
+</main>

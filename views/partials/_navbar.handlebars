@@ -1,0 +1,186 @@
+<!-- Menu PC -->
+<aside class="sidebar">
+    <header class="sidebar-header">
+        <div class="userphotomenu">
+            <div id="placeholdericon2">
+                <i class="fa-solid fa-circle-user" id="icon2"></i>
+            </div>
+            <div id="userimg"></div>
+
+            {{!-- <div class="avatar">
+                <div id="avatar" class="avatar-text">T</div>
+            </div> --}}
+        </div>
+        <input type="hidden" name="" id="usernome">
+        <p>{{userName}}</p>
+    </header>
+
+    <nav>
+        <!-- home -->
+        <a href="/aluno/">
+            <button type="button" class="{{#if home}}ativo{{/if}}">
+                <span>
+                    <i class="fa-solid fa-house icones"></i>
+                    <span>Home</span>
+                </span>
+            </button>
+        </a>
+        <!-- calendário -->
+        <a href="/aluno/calendario">
+            <button type="button" class="{{#if calendario}}ativo{{/if}}">
+                <span>
+                    <i class="fa-solid fa-calendar icones"></i>
+                    <span>Calendário</span>
+                </span>
+            </button>
+        </a>
+        <!-- boletim -->
+        <a href="/aluno/boletim">
+            <button type="button" class="{{#if boletim}}ativo{{/if}}">
+                <span>
+                    <strong class="icones">MB</strong>
+                    <span>Boletim</span>
+                </span>
+            </button>
+        </a>
+        <!-- empenho -->
+        <a href="/aluno/empenho">
+            <button type="button" class="{{#if empenho}}ativo{{/if}}">
+                <span>
+                    <i class="fa-solid fa-chart-pie icones"></i>
+                    <span>Empenho</span>
+                </span>
+            </button>
+        </a>
+        <!-- horário -->
+        <a href="/aluno/horario">
+            <button type="button" class="{{#if horario}}ativo{{/if}}">
+                <span>
+                    <i class="fa-solid fa-clock icones"></i>
+                    <span>Horário</span>
+                </span>
+            </button>
+        </a>
+        <!-- meu perfil -->
+        <a href="/aluno/meuperfil">
+            <button type="button" class="{{#if meuperfil}}ativo{{/if}}">
+                <span>
+                    <i class="fa-solid fa-user icones"></i>
+                    <span>Meu perfil</span>
+                </span>
+            </button>
+
+        </a>
+        <!-- sair -->
+        <a href="#" data-bs-toggle="modal" data-bs-target="#exitModal">
+            <button type="button" class="sair">
+                <span>
+                    <i class="fa-solid fa-arrow-right-from-bracket fa-flip-horizontal" style="color: #fff;"></i>
+                    <span>Sair</span>
+                </span>
+            </button>
+        </a>
+    </nav>
+</aside>
+
+<!-- Menu Celular-->
+<div>
+    <button type="button" class="button-mobile" onclick="toggleMenu()">
+        <span>
+            <i class="fa-solid fa-bars"></i>
+        </span>
+    </button>
+
+    <nav class="menu-mobile" id="menu-mobile">
+        <button class="button-close" onclick="toggleMenu()">
+            <span>
+                <i class="fa-solid fa-x fa-2xl" style="color: #fff;"></i>
+            </span>
+        </button>
+
+        <!-- home -->
+        <a href="/aluno/">
+            <button type="button" class="{{#if home}}ativo{{/if}}">
+                <span>
+                    <i class="fa-solid fa-house icones" style="color: #fff;"></i>
+                    <span class="mobile-text">Home</span>
+                </span>
+            </button>
+        </a>
+        <!-- calendário -->
+        <a href="/aluno/calendario">
+            <button type="button" class="{{#if calendario}}ativo{{/if}}">
+                <span>
+                    <i class="fa-solid fa-calendar icones" style="color: #fff;"></i>
+                    <span class="mobile-text">Calendário</span>
+                </span>
+            </button>
+        </a>
+        <!-- boletim -->
+        <a href="/aluno/boletim">
+            <button type="button" class="{{#if boletim}}ativo{{/if}}">
+                <span>
+                    <strong class="icone branco">MB</strong>
+                    <span class="mobile-text">Boletim</span>
+                </span>
+            </button>
+        </a>
+        <!-- empenho -->
+        <a href="/aluno/empenho">
+            <button type="button" class="{{#if empenho}}ativo{{/if}}">
+                <span>
+                    <i class="fa-solid fa-chart-pie icones" style="color: #fff;"></i>
+                    <span class="mobile-text">Empenho</span>
+                </span>
+            </button>
+        </a>
+        <!-- horário -->
+        <a href="/aluno/horario">
+            <button type="button" class="{{#if horario}}ativo{{/if}}">
+                <span>
+                    <i class="fa-solid fa-clock icones" style="color: #fff;"></i>
+                    <span class="mobile-text">Horário</span>
+                </span>
+            </button>
+        </a>
+        <!-- meu perfil -->
+        <a href="/aluno/meuperfil">
+            <button type="button" class="{{#if meuperfil}}ativo{{/if}}">
+                <span>
+                    <i class="fa-solid fa-user icones" style="color: #fff;"></i>
+                    <span class="mobile-text">Meu perfil</span>
+                </span>
+            </button>
+        </a>
+        <!-- sair -->
+        <a href="/aluno/logout" data-bs-toggle="modal" data-bs-target="#exitModal">
+            <button type="button" class="sair">
+                <span>
+                    <i class="fa-solid fa-arrow-right-from-bracket fa-flip-horizontal" style="color: #fff;"></i>
+                    <span class="mobile-text">Sair</span>
+                </span>
+            </button>
+        </a>
+    </nav>
+</div>
+
+<!-- Imagem logo -->
+<div class="logoimg"></div>
+
+{{!-- MODAL SAIR --}}
+
+<div class="modal fade" id="exitModal" tabindex="-1" aria-labelledby="exitModal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="title">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Deseja mesmo sair?</h1>
+        </div>
+        <div class="btn-exit" style="display:flex; align-itens: center; gap: 10px;">
+            <button type="button" class="green-btn" onclick="confirmLogout()">Ok</button>
+            <button type="button" class="red-btn" data-bs-dismiss="modal">Cancelar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

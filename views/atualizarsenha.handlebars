@@ -1,0 +1,61 @@
+{{#each erros}}
+<div id="msgContainer">
+    <div class="msg_error show" id="msg">
+        <div class="msg-header">
+            {{texto}}
+        </div>
+    </div>
+</div>
+{{else}}
+{{/each}}
+<!-- Login-->
+<section id="login" class="container">
+    <!-- img background inferior-->
+    <div class="fundo-inf"><img src="/img/svg/background-login-inferior.svg" alt="background-login"></div>
+
+    <div class="row wrapper">
+        <div class="col-md-6 centralizar">
+            <img src="/img/svg/PDA-logo-login.png" alt="PDA-logo" id="img-login">
+            <img src="/img/svg/PDA-logo.svg" alt="PDA-logo" id="img-login2">
+        </div>
+        <div class="col-md-6">
+            <!-- img fundo superior -->
+            <div class="fundo-sup"><img src="/img/svg/background-login-superior.svg" alt="background-login"></div>
+
+            <div class="card-login">
+                <p class="titulo-login">Redefinir senha</p>
+                <form action="/aluno/atualizarsenha" method="post">
+                    <div class="form-group mb-3">
+                        <label for="codigo-etec" class="text-login">Código da ETEC</label>
+                        <input type="hidden" name="codigo_etec" value="{{codigo_etec}}">
+                        <input type="text" class="form-control box-red" id="codigo-etec" placeholder="{{codigo_etec}}" disabled>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="rm" class="text-login">RM</label>
+                        <input type="hidden" name="rm" value="{{rm}}">
+                        <input type="text" class="form-control box-red" id="rm" name="rm" placeholder="{{rm}}" disabled>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="codigo-etec" class="text-login">Nova senha</label>
+                        <div class="password-container">
+                            <input type="password" class="form-control box-red" id="password5" name="novaSenha" required>
+                            <span class="iconInput" onclick="togglePassword('password5')">
+                                <i id="olho5" class="far fa-eye"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="rm" class="text-login">Confirmar senha</label>
+                        <div class="password-container">
+                            <input type="password" class="form-control box-red" id="password6" name="novaSenha2" required>
+                            <span class="iconInput" onclick="togglePassword('password6')">
+                                <i id="olho6" class="far fa-eye"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <button type="submit" class="red-btn mb-3" id="verify">Confirmar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>

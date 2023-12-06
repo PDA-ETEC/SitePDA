@@ -1,0 +1,112 @@
+<div class="filter-overlay" id="filter-overlay"></div>
+{{>_navbar}}
+<main class="content">
+    <div class="intro">
+        <h1>Horário de aulas</h1>
+    </div>
+    <div class="block">
+        <div class="table-responsive" id="borda">
+            <table class="tabela table table-bordered" id="content">
+                <thead class="cabecalho">
+                    <tr id="sem">
+                        <th scope="col" class="horarios">Hora</th>
+                        <th scope="col" class="semana">Segunda - Feira</th>
+                        <th scope="col" class="semana">Terça - Feira</th>
+                        <th scope="col" class="semana">Quarta - Feira</th>
+                        <th scope="col" class="semana">Quinta - Feira</th>
+                        <th scope="col" class="semana">Sexta - Feira</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row" class="horario">13:20 - 14:10</th>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <th scope="row" class="horario">14:10 - 15:00</th>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <th scope="row" class="horario">15:00 - 15:50</th>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr class="cabecalho">
+                        <th scope="row" colspan="6">Intervalo</th>
+
+                    </tr>
+                    <tr>
+                        <th scope="row" class="horario">16:10 - 17:00</th>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <th scope="row" class="horario">17:00 - 17:50</th>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <th scope="row" class="horario">17:50 - 18:40</th>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <button class="main-btn" id="editTable">Editar horários</button>
+    </div>
+</main>
+
+<!-- modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel">
+    <div class="modal-dialog modal-dialog-centered" style="color: #000;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <p class="modal-title" id="exampleModalLabel" style="font-weight: 600; font-size: 20px;">Alterar cores
+                    da célula</p>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3 colors" style="margin-left: 20px;">
+                    <label class="form-label">Conteúdo da célula:</label>
+                    <input type="text" id="contentInput">
+                </div>
+                <div class="mb-3 colors" style="margin-left: 20px;">
+                    <label class="form-label">Cor da célula:</label>
+                    <input type="color" class="colorPicker" id="colorPicker">
+                </div>
+                <div class="mb-3 colors" style="margin-left: 20px;">
+                    <label class="form-label">Cor do texto:</label>
+                    <input type="color" class="colorPicker" id="textColorPicker">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="main-btn" data-bs-dismiss="modal" id='saveButton'>Salvar</button>
+                <button type="button" class="main-btn" data-bs-dismiss="modal">Fechar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Link js -->
+<script src="/js/table.js"></script>

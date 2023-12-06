@@ -1,0 +1,101 @@
+<!-- Login-->
+<section id="login" class="container">
+    <!-- img background inferior-->
+    <div class="fundo-inf"><img src="/img/svg/background-login-inferior.svg" alt="background-login"></div>
+
+    <div class="row wrapper">
+        <div class="col-md-6 centralizar">
+            <img src="/img/svg/PDA-logo-login.png" alt="PDA-logo" id="img-login">
+            <img src="/img/svg/PDA-logo.svg" alt="PDA-logo" id="img-login2">
+        </div>
+        <div class="col-md-6">
+            <!-- img fundo superior -->
+            <div class="fundo-sup"><img src="/img/svg/background-login-superior.svg" alt="background-login"></div>
+
+            <div class="card-login">
+                <p class="titulo-login">Esqueci minha senha</p>
+                <form action="/aluno/esquecisenha" method="post">
+                    <div class="form-group mb-3">
+                        <label for="codigo-etec" class="text-login">Código da ETEC</label>
+                        <input type="text" class="form-control box-red" id="codigo-etec" name="codigo_etec" required maxlength="3">
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="rm" class="text-login">RM</label>
+                        <input type="text" class="form-control box-red" id="rm" name="rm" required maxlength="5">
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="email" class="text-login">Email</label>
+                        <input type="text" class="form-control box-red" id="email" name="email" placeholder="nome.sobrenome@etec.sp.gov.br" required>
+                    </div>
+                    <button type="submit" class="red-btn mb-3" id="cod">Gerar código de acesso</button> 
+                    <input type="hidden" name="codigoAcesso" id="key">
+                    <p class="text-center" id="back"><a class="esqueci-senha" href="/">Voltar para página principal</a></p>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    var inputCod = document.getElementById('codigo-etec')
+    var inputEmail = document.getElementById('email')
+    var inputRm = document.getElementById('rm')
+
+    var btnCod = document.getElementById('cod')
+    btnCod.disabled = true;
+
+
+    function verificarCampos() {
+    if (inputCod.value === '' || inputEmail.value === '' || inputRm.value === '') {
+        console.log('Olá');
+        btnCod.disabled = true;
+    } else {
+        btnCod.disabled = false;
+    }
+}
+
+inputCod.addEventListener('input', verificarCampos);
+inputEmail.addEventListener('input', verificarCampos);
+inputRm.addEventListener('input', verificarCampos);
+
+var form = document.querySelector('form'); 
+var count = 0;
+var inputKey = document.getElementById('key')
+
+function generateRandomCode(length) {
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let codigoAleatorio = '';
+    for (let i = 0; i < length; i++) {
+        const randomIndex = Math.floor(Math.random() * characters.length);
+        codigoAleatorio += characters.charAt(randomIndex);
+    }
+    key.value = codigoAleatorio;
+    return codigoAleatorio;
+}
+
+btnCod.addEventListener('click', function() {
+    var back = document.getElementById('back')
+
+    var codigoAleatorio = generateRandomCode(8);
+
+    var novoFormGroup = document.createElement('div');
+    novoFormGroup.className = 'form-group mb-3 dynamic-form-group';
+
+    var novoInput = document.createElement('input');
+    novoInput.type = 'text';
+    novoInput.value = codigoAleatorio;
+    novoInput.readOnly = true;
+    novoInput.className = 'form-control box-red';
+    novoInput.id = 'novo-campo';
+    novoInput.name = 'novo_campo';
+    novoInput.required = true;
+    novoInput.maxLength = 8;
+    novoInput.hidden = true;
+
+    novoFormGroup.appendChild(novoInput);
+
+    btnCod.style.display = 'none'
+    back.style.display = 'none'
+});
+
+</script>

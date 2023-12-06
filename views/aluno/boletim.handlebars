@@ -1,0 +1,604 @@
+<div class="filter-overlay" id="filter-overlay"></div>
+{{>_navbar}}
+<main class="content">
+    <div class="intro">
+        <h1>Boletim</h1>
+    </div>
+    <div class="block">
+        <div class="mod">
+            <p>Selecione o módulo/série:</p>
+
+            <form id="buscarForm" action="/aluno/boletim" method="post">
+            <div class="input__container">
+                <select class="outline-blue-select" name="serie" id="categoria" onchange="this.form.submit()">
+                {{#each seriesOptions}}
+                <option value="{{this.value}}" {{#if this.isSelected}}selected{{/if}}>{{this.value}}</option>
+                {{/each}}
+                </select>
+            </div>
+            <!-- O botão "Buscar" pode ser removido, pois o formulário será enviado automaticamente -->
+            {{!-- <button class="main-btn">Buscar</button> --}}
+            </form>
+            <form id="pdfForm" action="/aluno/baixarpdf" method="post">
+                <button id="baixarPdfBtn" class="main-btn">Baixar PDF</button>
+            </form>
+        </div>
+        <div class="legenda">
+            <p>MB = Muito Bom</p>
+            <p>B = Bom</p>
+            <p>R = Regular</p>
+            <p>I = insatisfatório</p>
+            <p>NA = Não Avaliado</p>
+        </div>
+        <div class="table-responsive" id="borda">
+            <table class="tabela tabelahover table table-bordered" id="content">
+                <thead class="cabecalho">
+                    <tr>
+                        <th scope="col">COMPONENTE CURRICULAR</th>
+                        <th scope="col">1° BIM</th>
+                        <th scope="col">2° BIM</th>
+                        <th scope="col">3° BIM</th>
+                        <th scope="col">4° BIM</th>
+                        <th scope="col">Final</th>
+                        <th scope="col">ANÁLISE DO CONSELHO</th>
+                        <th scope="col">AULAS</th>
+                        <th scope="col">FALTAS</th>
+                        <th scope="col">FREQUÊNCIA</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {{#each serie}}
+                    {{#if this.nome}}
+                        <tr>
+                            <td>{{this.nome}}</td>
+                            <td>{{this.bim1}}</td>
+                            <td>{{this.bim2}}</td>
+                            <td>{{this.bim3}}</td>
+                            <td>{{this.bim4}}</td>
+                            <td>{{this.final}}</td>
+                            <td>{{this.conselho}}</td>
+                            <td>{{this.aulas}}</td>
+                            <td>{{this.faltas}}</td>
+                            <td>{{this.frequencia}}%</td>
+                        </tr>
+                    {{/if}}
+                {{else}}
+                <td colspan="10" rowspan="14" style="font-size: 30px; text-align: center; font-weight: 700; color: #d62435; padding: 15% 0 15% 0;"> Erro: Boletim não encontrado! </td>
+                <!-- Se não houver dados, preenche a linha com hífens -->
+                {{!-- <tr>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                </tr>
+                <tr>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                </tr>
+                <tr>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                </tr>
+                <tr>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                </tr>
+                <tr>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                </tr>
+                <tr>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                </tr>
+                <tr>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                </tr>
+                <tr>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                </tr>
+                <tr>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                </tr>
+                <tr>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                </tr>
+                <tr>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                </tr>
+                <tr>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                </tr>
+                <tr>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                </tr>
+                <tr>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                    <td style="font-size: 25px; text-align: center;"> - </td>
+                </tr> --}}
+                {{/each}}
+                </tbody>
+            </table>
+            {{!-- <tbody>
+                    <tr>                  
+                        {{#each serie}}
+                            <th scope="row" id="componente">{{nome}}</th>
+                            <td id="bim1">{{bim1}}</td>
+                            <td id="bim2">{{bim2}}</td>
+                            <td id="bim3">{{bim3}}</td>
+                            <td id="bim4">{{bim4}}</td>
+                            <td id="final">{{final}}</td>
+                            <td id="conselho">{{conselho}}</td>
+                            <td id="aulas">{{aulas}}</td>
+                            <td id="faltas">{{faltas}}</td>
+                            <td id="freq">{{frequencia}}</td>
+                        {{else}}
+                            <td id="bim1" style="font-size: 25px;"> - </td>
+                            <td id="bim2" style="font-size: 25px;"> - </td>
+                            <td id="bim3" style="font-size: 25px;"> - </td>
+                            <td id="bim4" style="font-size: 25px;"> - </td>
+                            <td id="final" style="font-size: 25px;"> - </td>
+                            <td id="conselho" style="font-size: 25px;"> - </td>
+                            <td id="aulas" style="font-size: 25px;"> - </td>
+                            <td id="faltas" style="font-size: 25px;"> - </td>
+                            <td id="freq" style="font-size: 25px;"> - </td>
+                        {{/each}}
+                    </tr>
+                    <tr>
+                        {{#each serie}}
+                            <th scope="row" id="componente">{{nome}}</th>
+                            <td id="bim1">{{bim1}}</td>
+                            <td id="bim2">{{bim2}}</td>
+                            <td id="bim3">{{bim3}}</td>
+                            <td id="bim4">{{bim4}}</td>
+                            <td id="final">{{final}}</td>
+                            <td id="conselho">{{conselho}}</td>
+                            <td id="aulas">{{aulas}}</td>
+                            <td id="faltas">{{faltas}}</td>
+                            <td id="freq">{{frequencia}}</td>
+                        {{else}}
+                            <td id="bim1" style="font-size: 25px;"> - </td>
+                            <td id="bim2" style="font-size: 25px;"> - </td>
+                            <td id="bim3" style="font-size: 25px;"> - </td>
+                            <td id="bim4" style="font-size: 25px;"> - </td>
+                            <td id="final" style="font-size: 25px;"> - </td>
+                            <td id="conselho" style="font-size: 25px;"> - </td>
+                            <td id="aulas" style="font-size: 25px;"> - </td>
+                            <td id="faltas" style="font-size: 25px;"> - </td>
+                            <td id="freq" style="font-size: 25px;"> - </td>
+                        {{/each}}
+                    </tr>
+                    <tr>
+                        {{#each serie}}
+                            <th scope="row" id="componente">{{nome}}</th>
+                            <td id="bim1">{{bim1}}</td>
+                            <td id="bim2">{{bim2}}</td>
+                            <td id="bim3">{{bim3}}</td>
+                            <td id="bim4">{{bim4}}</td>
+                            <td id="final">{{final}}</td>
+                            <td id="conselho">{{conselho}}</td>
+                            <td id="aulas">{{aulas}}</td>
+                            <td id="faltas">{{faltas}}</td>
+                            <td id="freq">{{frequencia}}</td>
+                        {{else}}
+                            <td id="bim1" style="font-size: 25px;"> - </td>
+                            <td id="bim2" style="font-size: 25px;"> - </td>
+                            <td id="bim3" style="font-size: 25px;"> - </td>
+                            <td id="bim4" style="font-size: 25px;"> - </td>
+                            <td id="final" style="font-size: 25px;"> - </td>
+                            <td id="conselho" style="font-size: 25px;"> - </td>
+                            <td id="aulas" style="font-size: 25px;"> - </td>
+                            <td id="faltas" style="font-size: 25px;"> - </td>
+                            <td id="freq" style="font-size: 25px;"> - </td>
+                        {{/each}}
+                    </tr>
+                    <tr>
+                        {{#each serie}}
+                            <th scope="row" id="componente">{{nome}}</th>
+                            <td id="bim1">{{bim1}}</td>
+                            <td id="bim2">{{bim2}}</td>
+                            <td id="bim3">{{bim3}}</td>
+                            <td id="bim4">{{bim4}}</td>
+                            <td id="final">{{final}}</td>
+                            <td id="conselho">{{conselho}}</td>
+                            <td id="aulas">{{aulas}}</td>
+                            <td id="faltas">{{faltas}}</td>
+                            <td id="freq">{{frequencia}}</td>
+                        {{else}}
+                            <td id="bim1" style="font-size: 25px;"> - </td>
+                            <td id="bim2" style="font-size: 25px;"> - </td>
+                            <td id="bim3" style="font-size: 25px;"> - </td>
+                            <td id="bim4" style="font-size: 25px;"> - </td>
+                            <td id="final" style="font-size: 25px;"> - </td>
+                            <td id="conselho" style="font-size: 25px;"> - </td>
+                            <td id="aulas" style="font-size: 25px;"> - </td>
+                            <td id="faltas" style="font-size: 25px;"> - </td>
+                            <td id="freq" style="font-size: 25px;"> - </td>
+                        {{/each}}
+                    </tr>
+                    <tr>
+                        {{#each serie}}
+                            <th scope="row" id="componente">{{nome}}</th>
+                            <td id="bim1">{{bim1}}</td>
+                            <td id="bim2">{{bim2}}</td>
+                            <td id="bim3">{{bim3}}</td>
+                            <td id="bim4">{{bim4}}</td>
+                            <td id="final">{{final}}</td>
+                            <td id="conselho">{{conselho}}</td>
+                            <td id="aulas">{{aulas}}</td>
+                            <td id="faltas">{{faltas}}</td>
+                            <td id="freq">{{frequencia}}</td>
+                        {{else}}
+                            <td id="bim1" style="font-size: 25px;"> - </td>
+                            <td id="bim2" style="font-size: 25px;"> - </td>
+                            <td id="bim3" style="font-size: 25px;"> - </td>
+                            <td id="bim4" style="font-size: 25px;"> - </td>
+                            <td id="final" style="font-size: 25px;"> - </td>
+                            <td id="conselho" style="font-size: 25px;"> - </td>
+                            <td id="aulas" style="font-size: 25px;"> - </td>
+                            <td id="faltas" style="font-size: 25px;"> - </td>
+                            <td id="freq" style="font-size: 25px;"> - </td>
+                        {{/each}}
+                    </tr>
+                    <tr>
+                        {{#each serie}}
+                            <th scope="row" id="componente">{{nome}}</th>
+                            <td id="bim1">{{bim1}}</td>
+                            <td id="bim2">{{bim2}}</td>
+                            <td id="bim3">{{bim3}}</td>
+                            <td id="bim4">{{bim4}}</td>
+                            <td id="final">{{final}}</td>
+                            <td id="conselho">{{conselho}}</td>
+                            <td id="aulas">{{aulas}}</td>
+                            <td id="faltas">{{faltas}}</td>
+                            <td id="freq">{{frequencia}}</td>
+                        {{else}}
+                            <td id="bim1" style="font-size: 25px;"> - </td>
+                            <td id="bim2" style="font-size: 25px;"> - </td>
+                            <td id="bim3" style="font-size: 25px;"> - </td>
+                            <td id="bim4" style="font-size: 25px;"> - </td>
+                            <td id="final" style="font-size: 25px;"> - </td>
+                            <td id="conselho" style="font-size: 25px;"> - </td>
+                            <td id="aulas" style="font-size: 25px;"> - </td>
+                            <td id="faltas" style="font-size: 25px;"> - </td>
+                            <td id="freq" style="font-size: 25px;"> - </td>
+                        {{/each}}
+                    </tr>
+                    <tr>
+                        {{#each serie}}
+                            <th scope="row" id="componente">{{nome}}</th>
+                            <td id="bim1">{{bim1}}</td>
+                            <td id="bim2">{{bim2}}</td>
+                            <td id="bim3">{{bim3}}</td>
+                            <td id="bim4">{{bim4}}</td>
+                            <td id="final">{{final}}</td>
+                            <td id="conselho">{{conselho}}</td>
+                            <td id="aulas">{{aulas}}</td>
+                            <td id="faltas">{{faltas}}</td>
+                            <td id="freq">{{frequencia}}</td>
+                        {{else}}
+                            <td id="bim1" style="font-size: 25px;"> - </td>
+                            <td id="bim2" style="font-size: 25px;"> - </td>
+                            <td id="bim3" style="font-size: 25px;"> - </td>
+                            <td id="bim4" style="font-size: 25px;"> - </td>
+                            <td id="final" style="font-size: 25px;"> - </td>
+                            <td id="conselho" style="font-size: 25px;"> - </td>
+                            <td id="aulas" style="font-size: 25px;"> - </td>
+                            <td id="faltas" style="font-size: 25px;"> - </td>
+                            <td id="freq" style="font-size: 25px;"> - </td>
+                        {{/each}}
+                    </tr>
+                    <tr>
+                        {{#each serie}}
+                            <th scope="row" id="componente">{{nome}}</th>
+                            <td id="bim1">{{bim1}}</td>
+                            <td id="bim2">{{bim2}}</td>
+                            <td id="bim3">{{bim3}}</td>
+                            <td id="bim4">{{bim4}}</td>
+                            <td id="final">{{final}}</td>
+                            <td id="conselho">{{conselho}}</td>
+                            <td id="aulas">{{aulas}}</td>
+                            <td id="faltas">{{faltas}}</td>
+                            <td id="freq">{{frequencia}}</td>
+                        {{else}}
+                            <td id="bim1" style="font-size: 25px;"> - </td>
+                            <td id="bim2" style="font-size: 25px;"> - </td>
+                            <td id="bim3" style="font-size: 25px;"> - </td>
+                            <td id="bim4" style="font-size: 25px;"> - </td>
+                            <td id="final" style="font-size: 25px;"> - </td>
+                            <td id="conselho" style="font-size: 25px;"> - </td>
+                            <td id="aulas" style="font-size: 25px;"> - </td>
+                            <td id="faltas" style="font-size: 25px;"> - </td>
+                            <td id="freq" style="font-size: 25px;"> - </td>
+                        {{/each}}
+                    </tr>
+                    <tr>
+                        {{#each serie}}
+                            <th scope="row" id="componente">{{nome}}</th>
+                            <td id="bim1">{{bim1}}</td>
+                            <td id="bim2">{{bim2}}</td>
+                            <td id="bim3">{{bim3}}</td>
+                            <td id="bim4">{{bim4}}</td>
+                            <td id="final">{{final}}</td>
+                            <td id="conselho">{{conselho}}</td>
+                            <td id="aulas">{{aulas}}</td>
+                            <td id="faltas">{{faltas}}</td>
+                            <td id="freq">{{frequencia}}</td>
+                        {{else}}
+                            <td id="bim1" style="font-size: 25px;"> - </td>
+                            <td id="bim2" style="font-size: 25px;"> - </td>
+                            <td id="bim3" style="font-size: 25px;"> - </td>
+                            <td id="bim4" style="font-size: 25px;"> - </td>
+                            <td id="final" style="font-size: 25px;"> - </td>
+                            <td id="conselho" style="font-size: 25px;"> - </td>
+                            <td id="aulas" style="font-size: 25px;"> - </td>
+                            <td id="faltas" style="font-size: 25px;"> - </td>
+                            <td id="freq" style="font-size: 25px;"> - </td>
+                        {{/each}}
+                    </tr>
+                    <tr>
+                        {{#each serie}}
+                            <th scope="row" id="componente">{{nome}}</th>
+                            <td id="bim1">{{bim1}}</td>
+                            <td id="bim2">{{bim2}}</td>
+                            <td id="bim3">{{bim3}}</td>
+                            <td id="bim4">{{bim4}}</td>
+                            <td id="final">{{final}}</td>
+                            <td id="conselho">{{conselho}}</td>
+                            <td id="aulas">{{aulas}}</td>
+                            <td id="faltas">{{faltas}}</td>
+                            <td id="freq">{{frequencia}}</td>
+                        {{else}}
+                            <td id="bim1" style="font-size: 25px;"> - </td>
+                            <td id="bim2" style="font-size: 25px;"> - </td>
+                            <td id="bim3" style="font-size: 25px;"> - </td>
+                            <td id="bim4" style="font-size: 25px;"> - </td>
+                            <td id="final" style="font-size: 25px;"> - </td>
+                            <td id="conselho" style="font-size: 25px;"> - </td>
+                            <td id="aulas" style="font-size: 25px;"> - </td>
+                            <td id="faltas" style="font-size: 25px;"> - </td>
+                            <td id="freq" style="font-size: 25px;"> - </td>
+                        {{/each}}
+                    </tr>
+                    <tr>
+                       {{#each serie}}
+                            <th scope="row" id="componente">{{nome}}</th>
+                            <td id="bim1">{{bim1}}</td>
+                            <td id="bim2">{{bim2}}</td>
+                            <td id="bim3">{{bim3}}</td>
+                            <td id="bim4">{{bim4}}</td>
+                            <td id="final">{{final}}</td>
+                            <td id="conselho">{{conselho}}</td>
+                            <td id="aulas">{{aulas}}</td>
+                            <td id="faltas">{{faltas}}</td>
+                            <td id="freq">{{frequencia}}</td>
+                        {{else}}
+                            <td id="bim1" style="font-size: 25px;"> - </td>
+                            <td id="bim2" style="font-size: 25px;"> - </td>
+                            <td id="bim3" style="font-size: 25px;"> - </td>
+                            <td id="bim4" style="font-size: 25px;"> - </td>
+                            <td id="final" style="font-size: 25px;"> - </td>
+                            <td id="conselho" style="font-size: 25px;"> - </td>
+                            <td id="aulas" style="font-size: 25px;"> - </td>
+                            <td id="faltas" style="font-size: 25px;"> - </td>
+                            <td id="freq" style="font-size: 25px;"> - </td>
+                        {{/each}}
+                    </tr>
+                    <tr>
+                        {{#each serie}}
+                            <th scope="row" id="componente">{{nome}}</th>
+                            <td id="bim1">{{bim1}}</td>
+                            <td id="bim2">{{bim2}}</td>
+                            <td id="bim3">{{bim3}}</td>
+                            <td id="bim4">{{bim4}}</td>
+                            <td id="final">{{final}}</td>
+                            <td id="conselho">{{conselho}}</td>
+                            <td id="aulas">{{aulas}}</td>
+                            <td id="faltas">{{faltas}}</td>
+                            <td id="freq">{{frequencia}}</td>
+                        {{else}}
+                            <td id="bim1" style="font-size: 25px;"> - </td>
+                            <td id="bim2" style="font-size: 25px;"> - </td>
+                            <td id="bim3" style="font-size: 25px;"> - </td>
+                            <td id="bim4" style="font-size: 25px;"> - </td>
+                            <td id="final" style="font-size: 25px;"> - </td>
+                            <td id="conselho" style="font-size: 25px;"> - </td>
+                            <td id="aulas" style="font-size: 25px;"> - </td>
+                            <td id="faltas" style="font-size: 25px;"> - </td>
+                            <td id="freq" style="font-size: 25px;"> - </td>
+                        {{/each}}
+                    </tr>
+                    <tr>
+                        {{#each serie}}
+                            <th scope="row" id="componente">{{nome}}</th>
+                            <td id="bim1">{{bim1}}</td>
+                            <td id="bim2">{{bim2}}</td>
+                            <td id="bim3">{{bim3}}</td>
+                            <td id="bim4">{{bim4}}</td>
+                            <td id="final">{{final}}</td>
+                            <td id="conselho">{{conselho}}</td>
+                            <td id="aulas">{{aulas}}</td>
+                            <td id="faltas">{{faltas}}</td>
+                            <td id="freq">{{frequencia}}</td>
+                        {{else}}
+                            <td id="bim1" style="font-size: 25px;"> - </td>
+                            <td id="bim2" style="font-size: 25px;"> - </td>
+                            <td id="bim3" style="font-size: 25px;"> - </td>
+                            <td id="bim4" style="font-size: 25px;"> - </td>
+                            <td id="final" style="font-size: 25px;"> - </td>
+                            <td id="conselho" style="font-size: 25px;"> - </td>
+                            <td id="aulas" style="font-size: 25px;"> - </td>
+                            <td id="faltas" style="font-size: 25px;"> - </td>
+                            <td id="freq" style="font-size: 25px;"> - </td>
+                        {{/each}}
+                    </tr>
+                    <tr>
+                        {{#each serie}}
+                            <th scope="row" id="componente">{{nome}}</th>
+                            <td id="bim1">{{bim1}}</td>
+                            <td id="bim2">{{bim2}}</td>
+                            <td id="bim3">{{bim3}}</td>
+                            <td id="bim4">{{bim4}}</td>
+                            <td id="final">{{final}}</td>
+                            <td id="conselho">{{conselho}}</td>
+                            <td id="aulas">{{aulas}}</td>
+                            <td id="faltas">{{faltas}}</td>
+                            <td id="freq">{{frequencia}}</td>
+                        {{else}}
+                            <td id="bim1" style="font-size: 25px;"> - </td>
+                            <td id="bim2" style="font-size: 25px;"> - </td>
+                            <td id="bim3" style="font-size: 25px;"> - </td>
+                            <td id="bim4" style="font-size: 25px;"> - </td>
+                            <td id="final" style="font-size: 25px;"> - </td>
+                            <td id="conselho" style="font-size: 25px;"> - </td>
+                            <td id="aulas" style="font-size: 25px;"> - </td>
+                            <td id="faltas" style="font-size: 25px;"> - </td>
+                            <td id="freq" style="font-size: 25px;"> - </td>
+                        {{/each}}
+                    </tr>
+                </tbody> --}}
+        </div>
+    </div>
+</main>
+
+{{!-- Impede com que a página seja recarregada ao trabalhar com as rotas --}}
+{{!-- <script>
+    $(document).ready(function () {
+        $("#baixarPdfBtn").click(function (e) {
+            e.preventDefault(); // Impede o comportamento padrão do botão
+
+            // Faça a solicitação assíncrona usando jQuery
+            $.post("/aluno/baixarpdf", function (data) {
+                // Manipule a resposta, se necessário
+                console.log("PDF baixado com sucesso!");
+            });
+        });
+    });
+</script> --}}
+
+<script>
+  // Este script não é mais necessário se você está usando o atributo onchange no <select>
+  // document.getElementById('categoria').addEventListener('change', function() {
+  //   document.getElementById('buscarForm').submit();
+  // });
+</script>   
+
+<!-- Link js -->
+{{!-- <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script> (necessário para que o script acima funcione) --}}

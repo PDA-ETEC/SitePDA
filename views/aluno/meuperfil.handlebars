@@ -1,0 +1,225 @@
+<div class="filter-overlay" id="filter-overlay"></div>
+{{>_navbar}}
+{{#each erros}}
+<div id="msgContainer">
+    <div class="msg_error show" id="msg">
+        <div class="msg-header">
+            {{texto}}
+        </div>
+    </div>
+</div>
+{{else}}
+{{/each}}
+<main class="content">
+    <div class="intro">
+        <h1>Meu perfil</h1>
+    </div>
+    <div class="block">
+        <div class="top">
+            <h2 style="font-size: 27px;">Informações pessoais</h2>
+            <div class="input-icons">
+                <i class="fa-regular fa-pen-to-square fa-xl"></i>
+                <input type="button" class="input-field" data-bs-toggle="modal" data-bs-target="#modal1">
+            </div>
+        </div>
+        <div class="idf row">
+            <div class="idf-header col-md-4">
+                <div class="userphoto">
+                    <div id="placeholdericon">
+                        <i class="fa-solid fa-circle-user" id="icon"></i>
+                    </div>
+                    <div id="userimgg"></div>
+                </div>
+            </div>
+            <div class="idf-info col-md-8" id="info">
+                {{#each usuarios}}
+                <p id="rm"><span class="txt-bold">RM:</span> {{rm}}</p>
+                <p id="nome"><span class="txt-bold">Nome:</span> {{nome}}</p>
+                {{!-- <p id="rased">RA SED: </p> PODEMOS TROCAR POR INSTITUIÇÃO (FAZER UM IF TENDO COMO BASE O CODIGO DA ETEC)--}}
+                <p id="habilitacao"><span class="txt-bold">Habilitação:</span> {{habilitacao}}</p>
+                <p id="matricula"><span class="txt-bold">Sit. matrícula:</span> {{matricula}}</p>
+                <p id="turma"><span class="txt-bold">Turma:</span> {{turma}}</p>
+                <p id="modulo"><span class="txt-bold">Módulo/Série:</span> {{modulo}}</p>
+                <p id="ano"><span class="txt-bold">Ano OC:</span> {{ano_inicio}}</p>
+                {{else}}
+                {{/each}}
+            </div>
+        </div>
+        <div class="conf">
+            <h3 class="title">Configurações gerais</h3>
+            <div class="conf-content">
+                <p class="sub-titulo-modal">Tema</p>
+                <div class="opc">
+                    <label for="myToggle" class="switch">
+                        <input type="checkbox" id="myToggle">
+                        <span class="slider round" onclick="switchTheme()"></span>
+                    </label>
+                    <label>Modo escuro</label>
+                </div>
+            </div>
+            <h3 class="title">Acessibilidade</h3>
+            <div class="conf-content">
+                <p class="msg-txt">A PDA se compromete em incluir o website acessivel à todos os tipos de públicos</p>
+                <!-- home.handlebars -->
+                <div class="opc">
+                    <label for="vlibrasToggle" class="switch">
+                        <input type="checkbox" id="vlibrasToggle">
+                        <span class="slider round" id="myTogglespan"></span>
+                    </label>
+                    <label>VLibras Widget</label>
+                </div>
+                <p class="sub-titulo-modal">Filtros</p>
+                <p class="msg-txt">Utilize alguns filtros para melhorar a sua visibilidade no site.
+                </p>
+                <div class="opc">
+                    <label for="myToggle3" class="switch">
+                        <input type="checkbox" id="myToggle3">
+                        <span class="slider round" id="myTogglespan"></span>
+                    </label>
+                    <label>Filtro de dessaturação</label>
+                </div>
+                <div class="opc">
+                    <label for="contrastToggle" class="switch">
+                        <input type="checkbox" id="contrastToggle">
+                        <span class="slider round" id="contrastSpan"></span>
+                    </label>
+                    <label>Filtro de contraste invertido</label>
+                </div>
+                <p class="sub-titulo-modal">Fonte</p>
+                <p class="msg-txt">Adapte o tamanho e a fonte ao seu critério de acordo com sua necessidade.
+                </p>
+                <div class="range">
+                    <label for="range" id="v-28">Tamanho da fonte</label>
+                    <input type="range" min="0" max="3" value="0" step="1" id="fader">
+                    <button class="main-btn" id="resetButton" style="display: none;">Restaurar</button>
+                </div>
+                <div class="opc">
+                    <label for="fontToggle" class="switch">
+                        <input type="checkbox" id="fontToggle">
+                        <span class="slider round" id="fontSpan"></span>
+                    </label>
+                    <label>Fonte dislexia</label>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- MODAL -->
+<div class="modal fade" id="modal1" tabindex="-1" aria-labelledby="modal1" aria-hidden="true" style="color: #000;">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <p class="modal-title fs-5" style="font-weight: 600;" id="exampleModalLabel">Alterar Informações de
+                    perfil</p>
+            </div>
+            <div class="modal-body">
+                <p class="sub-titulo-modal">Informações pessoais</p>
+                {{#each usuarios}}
+                <div class="mb-3" style="margin-left: 20px;">
+                    <label class="form-label">RM:</label>
+                    <input class="form-control" type="text" placeholder="{{rm}}" disabled>
+                </div>
+                <div class="mb-3" style="margin-left: 20px;">
+                    <label class="form-label">Nome completo:</label>
+                    <input class="form-control" type="text" placeholder="{{nome}}" disabled>
+                </div>
+                <div class="mb-3" style="margin-left: 20px;">
+                    <label class="form-label">Email:</label>
+                    <input class="form-control" type="text" placeholder="{{email}}" disabled>
+                </div>
+                {{else}}
+                {{/each}}
+                <div class="senha_txt">
+                    <p>Deseja trocar de senha? <a href="" data-bs-toggle="modal" data-bs-target="#modal2">Clique
+                            aqui</a></p>
+                </div>
+                <p class="sub-titulo-modal">Foto de perfil</p>
+                <form id="file-upload-form" class="uploader" style="display:flex">
+                    <input id="file-upload" type="file" name="fileUpload" accept="image/*" />
+
+                    <label for="file-upload" id="file-drag">
+                        <div id="file-image-div" class="hidden">
+                            <img id="file-image" src="#" alt="foto-perfil" class="hidden">
+                        </div>
+                        <div id="start">
+                            <i class="fa fa-image" aria-hidden="true" style="font-size: 50px;"></i>
+                            <div>Selecione um arquivo ou arraste aqui</div>
+                            <div id="notimage" class="hidden">Por favor selecione uma imagem</div>
+                            <span id="file-upload-btn" class="main-btn"
+                                style="display: inline-block; line-height: 30px;">Selecionar arquivo</span>
+                        </div>
+                        <div id="response" class="hidden">
+                            <input type="button" value="Alterar imagem" id="change-image-button" class="main-btn">
+                            <div id="messages"></div>
+                        </div>
+                    </label>
+                </form>
+                <div style="display: flex; justify-content: center; align-content: center; margin-top:10px">
+                    <button id="remove-image" class="main-btn" style="display: inline-block; line-height: 30px;">Remover foto</button>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <input type="button" value="Cancelar" id="cancel-button" class="main-btn" data-bs-dismiss="modal">
+                <button type="button" class="main-btn" id="save-button" data-bs-dismiss="modal">Salvar
+                    alterações</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL 2 -->
+<form action="/aluno/trocarsenha" method="post">
+    <div class="modal fade" id="modal2" tabindex="-1" aria-labelledby="modal2" aria-hidden="true" style="color: #000;">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="input-icons3">
+                        <i class="fa-solid fa-arrow-left"></i>
+                        <input type="button" class="input-field3" data-bs-toggle="modal" data-bs-target="#modal1">
+                    </div>
+                    <p class="modal-title fs-5" style="font-weight: 600;" id="exampleModalLabel">Alterar senha</p>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3" style="margin-left: 20px;">
+                        <label class="form-label">Senha atual:</label>
+                        <div class="password-container">
+                            <input class="form-control box-blue" id="password1" name="senhaAtual" type="password"
+                                placeholder="Digite sua senha atual">
+                            <span class="iconInput" onclick="togglePassword('password1')">
+                                <i id="olho1" class="far fa-eye"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="mb-3" style="margin-left: 20px;">
+                        <label class="form-label">Nova senha:</label>
+                        <div class="password-container">
+                            <input class="form-control box-blue" id="password2" name="novaSenha" type="password"
+                                placeholder="Digite sua nova senha">
+                            <span class="iconInput" onclick="togglePassword('password2')">
+                                <i id="olho2" class="far fa-eye"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="mb-3" style="margin-left: 20px;">
+                        <label class="form-label">Confirmar senha:</label>
+                        <div class="password-container">
+                            <input class="form-control box-blue" id="password3" name="novaSenha2" type="password"
+                                placeholder="Confirme sua senha">
+                            <span class="iconInput" onclick="togglePassword('password3')">
+                                <i id="olho3" class="far fa-eye"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="button" value="Cancelar" id="cancel-button" class="main-btn" data-bs-dismiss="modal">
+                    <button type="submit" class="main-btn" id="save-button2" data-bs-dismiss="modal">Salvar
+                        alterações</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<script src="/js/vlibras.js"></script>

@@ -1,0 +1,74 @@
+<div class="filter-overlay" id="filter-overlay"></div>
+{{>_navbar}}
+<!-- <aside class="status">
+    <header class="status-header">
+        <h3>Status</h3>
+    </header>
+    <nav>
+
+
+        HTML CANVAS
+        https://www.w3schools.com/js/tryit.asp?filename=tryai_chartjs_pie
+
+
+        <div class="grafico">
+            <canvas id="myChart"  style="width:100%;"></canvas>
+        </div>
+
+
+        <div class="grafico">
+            <button type="button">
+                <span>
+                </span>
+                <span>Frequência</span>
+            </button>
+        </div>
+
+
+        <div class="grafico">
+            <button type="button">
+                <span>
+                </span>
+                <span>Desempenho</span>
+            </button>
+        </div>
+       
+    </nav>
+</aside>  -->
+<main class="content">
+    <div class="nome">
+        <div class="typewriter-container">
+            <div class="typewriter">
+                <h2></h2>
+            </div>
+        </div>
+    </div>
+    <div class="intro">
+        <h1>Página Inicial</h1>
+    </div>
+    <div class="block">
+        {{!-- <h2>Saiba um pouco do PDA:</h2> --}}
+        <div class="carroseltemp"></div>
+        <h3>Um pouco da sua agenda:</h3>
+        <div class="calendarHome">
+            <div class="calendarContent">
+                {{#each agendas}}
+                <div class="calendarBody">
+                    <div class="calendarHeader">
+                        <div class="bolinha" style="background-color: {{cor}};"></div>
+                        <div id="calendarTitle"><strong>{{categoria}}</strong></div>
+                        <div id="calendarDate">{{selectedData}}</div>
+                    </div>
+                    <div id="calendarDesc" style="color: #000;">
+                        <span>Descrição: </span>{{conteudo}}
+                    </div>
+                </div>
+                {{else}}
+                <div style="color: #fff; margin: auto; font-size: 18px; padding: 10px;">
+                    Nada agendado no momento! Agende em: <a href="/aluno/calendario" style="color: #fff; text-decoration: none;"><strong>Calendário</strong></a>
+                </div>
+                {{/each}}
+            </div>
+        </div>
+    </div>
+</main>
