@@ -691,6 +691,9 @@ router.post('/agenda/deletar', eAluno, (req, res) => {
 })
 
 // Rota para baixar PDF
+
+process.env.OPENSSL_CONF = '/etc/ssl/openssl.cnf';
+
 router.post('/baixarpdf', (req, res) => {
   const templatePath = path.join(__dirname, '../views/templates/pdf-template.html');
   const rm = req.user.rm
