@@ -4,6 +4,7 @@ const handlebars = require('express-handlebars')
 const mongoose = require('mongoose')
 const connectDatabase = require('./database/db')
 const session = require('express-session')
+const MongoStore = require('connect-mongo')(session);
 const flash = require('connect-flash')
 const passport = require('passport')
 const bodyParser = require('body-parser')
@@ -35,11 +36,14 @@ app.use(express.urlencoded({
 }))
 
 // Sessão
+const sessionStore = new MongoStore({ mongooseConnection: mongoose.connection });
+
 app.use(session({
     secret: "nodejs",
     resave: true,
-    saveUninitialized: true
-}))
+    saveUninitialized: true,
+    store: sessionStore,  // Use o MongoStore para armazenar sessões
+}));
 
 app.use(passport.initialize())
 app.use(passport.session())
