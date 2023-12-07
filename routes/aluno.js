@@ -825,7 +825,7 @@ router.post('/baixarpdf', (req, res) => {
 
 function generatePDF(htmlTemplate, callback) {
   (async () => {
-    const browser = await puppeteer.launch({ headless: "new" });
+    const browser = await puppeteer.launch();
     const page = await browser.newPage();
     await page.setContent(htmlTemplate);
     const pdfBuffer = await page.pdf();
