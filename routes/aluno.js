@@ -809,7 +809,7 @@ router.post('/baixarpdf', (req, res) => {
         } else {
           console.log('PDF gerado com sucesso!');
           req.flash("success_msg", "PDF gerado com sucesso!");
-
+  
           res.setHeader('Content-Disposition', `attachment; filename=Boletim_${rm}.pdf`);
           res.setHeader('Content-Type', 'application/pdf');
           res.status(200).send(pdfBuffer);
@@ -824,16 +824,14 @@ router.post('/baixarpdf', (req, res) => {
 });
 
 function generatePDF(htmlTemplate, callback) {
-  (async () => {
-    const browser = await puppeteer.launch();
-    const page = await browser.newPage();
-    await page.setContent(htmlTemplate);
-    const pdfBuffer = await page.pdf();
-    await browser.close();
-    callback(null, pdfBuffer);
-  })().catch(err => {
-    console.error('Erro ao gerar o PDF:', err);
-    callback(err);
+  pdf.create(htmlTemplate).toBuffer((err, buffer) => {
+    if (err) {
+      console.error('Erro ao gerar o PDF:', err);
+      callback(err);
+    } else {
+      console.log('PDF gerado com sucesso');
+      callback(null, buffer);
+    }
   });
 }
 
