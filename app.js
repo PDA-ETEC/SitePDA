@@ -36,7 +36,10 @@ app.use(express.urlencoded({
 }))
 
 // Sessão
-const sessionStore = new MongoStore({ mongooseConnection: mongoose.connection });
+const sessionStore = new MongoStore({
+    mongooseConnection: mongoose.connection,
+    collection: 'sessions' // Nome da coleção no MongoDB para armazenar as sessões
+});
 
 app.use(session({
     secret: "nodejs",
