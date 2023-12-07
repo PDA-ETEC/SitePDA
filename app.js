@@ -106,9 +106,13 @@ app.use('/aluno', aluno)
 // app.listen(port, () => {
 //     console.log("Servidor rodando...")
 // })
-app.listen({
-    host: '0.0.0.0',
-    port: process.env.PORT ? Number(process.env.PORT) : 8081,
-}).then(() => {
+const port = process.env.PORT ? Number(process.env.PORT) : 8081
+app.listen(port, () => {
     console.log("Servidor rodando...")
 })
+// app.listen({
+//     host: '0.0.0.0',
+//     port: process.env.PORT ? Number(process.env.PORT) : 8081,
+// }).then(() => {
+//     console.log("Servidor rodando...")
+// })
