@@ -427,7 +427,10 @@ router.post('/esquecisenha', (req, res) => {
 
             // Configurar opções para o serviço Outlook
             const transporter = nodemailer.createTransport({
-              service: 'Outlook',
+              host: 'smtp-mail.outlook.com',
+              port: 587,
+              secure: false, // true for 465, false for other ports
+              requireTLS: true,
               auth: {
                 user: 'pda.suporte@outlook.com',
                 pass: 'pda_etec2023'
