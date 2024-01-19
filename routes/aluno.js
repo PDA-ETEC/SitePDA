@@ -190,7 +190,8 @@ router.post('/boletim', eAluno, (req, res) => {
         const totalAulas = materia.aulas;
         const faltas = materia.faltas;
         const presencas = totalAulas - faltas;
-        const frequencia = (presencas / totalAulas) * 100; // Porcentagem de frequência
+        const frequencia0 = (presencas / totalAulas) * 100; // Porcentagem de frequência
+        const frequencia = Math.floor(frequencia0)
   
         // Preparar operações de atualização
         updateOps[`${serieKey}.${materiaKey}.frequencia`] = frequencia;
@@ -695,7 +696,7 @@ router.post('/agenda/deletar', eAluno, (req, res) => {
 
 // Rota para baixar PDF
 
-process.env.OPENSSL_CONF = '/etc/ssl/openssl.cnf';
+// process.env.OPENSSL_CONF = '/etc/ssl/openssl.cnf';
 
 router.post('/baixarpdf', (req, res) => {
   const templatePath = path.join(__dirname, '../views/templates/pdf-template.html');
